@@ -35,12 +35,15 @@ ansible-playbook -i inventory.ini patch_windows.yml --ask-vault-pass
 ```
 
 ## Tested on
-Azure Virtual Machines
- 2 Windows Testing server
- 3 Linux 22.04 Testing Server
+- Azure Virtual Machines
+- 3 x Linux (Ubuntu 22.04) test servers
+- 2 x Windows test servers
 
 ## Results
-The Script ran succesfully and patching was succesfull
+- Linux playbook patched all 3 servers one at a time and rebooted only where required.
+- Windows playbook installed pending security and critical updates on both servers and rebooted them.
+- Ran with no failed hosts (`failed=0` in the Ansible play recap).
+  
 ## Possible improvements
 - Schedule runs through Ansible Automation Platform job templates
 - Add pre-patch snapshot and post-patch health checks
