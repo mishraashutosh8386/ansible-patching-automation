@@ -1,0 +1,20 @@
+---
+# Patch Windows servers with security, critical and rollup updates,
+# rebooting automatically when Windows requires it.
+- name: Patch Windows servers
+  hosts: windows
+
+  tasks:
+    - name: Install security, critical and rollup updates
+      ansible.windows.win_updates:
+        category_names:
+          - SecurityUpdates
+          - CriticalUpdates
+          - UpdateRollups
+        reboot: true
+        reboot_timeout: 1800
+      register: win_update_result
+
+    - name: Show patching summary
+      ansible.builtin.debug:
+        msg: "Installed {{ win_update_result.installed_update_count }} update(s); reboot required: {{ win_update_result.reboot_required }}"
